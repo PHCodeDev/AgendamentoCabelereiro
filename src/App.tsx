@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './Home';
-import NovoAgendamento from './pages/NovoAgendamento'; // Importe seu componente de agendamento
-import MinhasReservas from './pages/MinhasReservas'; // Importe seu componente de reservas
-import Obrigado from './pages/Obrigado'; // Importe o componente da página de agradecimento
+import Inicio from './pages/Inicio';
+import NovoAgendamento from './pages/NovoAgendamento';
+import MinhasReservas from './pages/MinhasReservas';
+import Obrigado from './pages/Obrigado'; 
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Inicio />} />
         <Route path="/novo-agendamento" element={<NovoAgendamento />} />
         <Route path="/minhas-reservas" element={<MinhasReservas />} />
         <Route path="/obrigado" element={<Obrigado />} /> {/* Rota para a página de agradecimento */}

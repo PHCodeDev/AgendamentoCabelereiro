@@ -20,7 +20,6 @@ const MinhasReservas: React.FC = () => {
     e.preventDefault();
     setMensagemErro("");
 
-    // Consultar as reservas no Supabase
     const { data, error } = await supabase
       .from("agendamentos")
       .select("*")
@@ -51,56 +50,67 @@ const MinhasReservas: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 relative">
+    <div className="custom-background flex flex-col items-center justify-center h-screen">
       <button
         onClick={handleInicio}
-        className="absolute top-4 left-4 p-2 bg-yellow-500 text-white rounded"
+        className="absolute top-10 left-10 p-2 bg-[#DCDCDD] text-black rounded transition hover:scale-105"
       >
         Início
       </button>
 
-      <h1 className="text-3xl font-bold mb-6">Minhas Reservas</h1>
+      <img
+        className="h-[150px]"
+        src="https://i.ibb.co/2S3jtXq/Group-3.png"
+        alt=""
+      />
+      <h1 className="text-white text-4xl mt-4 font-bold mb-6">
+        Minhas Reservas
+      </h1>
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-6 rounded-lg shadow-md"
+        className="relative z-10 w-full max-w-md bg-[#DCDCDD] p-6 rounded-lg shadow-md shadow-[#2c2c2c50] mt-4"
       >
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Número do Usuário
+          <label className="block text-[18px] text-[#111] text-sm font-bold mb-2">
+            Digite seu número abaixo
           </label>
           <input
             type="tel"
             value={numeroUsuario}
             onChange={(e) => setNumeroUsuario(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow-md my-1 shadow-[#8b8b8b] rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none bg-[#DCDCDD]"
             required
           />
         </div>
 
         <button
           type="submit"
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded shadow hover:bg-blue-600 transition"
+          className="bg-[#FF9C09] text-[#111] font-bold py-2 px-4 rounded shadow hover:scale-105 transition"
         >
           Conferir Reservas
         </button>
       </form>
+      {reservaEncontrada && (
+        <div className="ficha p-4 bg-[#FF9C09] rounded w-full max-w-md ">
+          <h2 className="text-xl font-bold">Reserva Encontrada!</h2>
+          <div className="flex justify-around text-[15px]">
+            <p>
+              <strong>Data:</strong>{" "}
+              {new Date(reservaEncontrada.data).toLocaleDateString("pt-BR")}
+            </p>
+            <p>
+            <strong>Horário:</strong> {reservaEncontrada.horario.slice(0, 5)}
+            </p>
+            <p>
+              <strong>Barbeiro:</strong> {reservaEncontrada.barbeiro}
+            </p>
+          </div>
+        </div>
+      )}
 
       {mensagemErro && <p className="text-red-500 mt-4">{mensagemErro}</p>}
 
-      {reservaEncontrada && (
-        <div className="mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-          <h2 className="text-xl font-bold">Reserva Encontrada!</h2>
-          <p>
-            <strong>Data:</strong> {reservaEncontrada.data}
-          </p>
-          <p>
-            <strong>Horário:</strong> {reservaEncontrada.horario}
-          </p>
-          <p>
-            <strong>Barbeiro:</strong> {reservaEncontrada.barbeiro}
-          </p>
-        </div>
-      )}
+      {reservaEncontrada && <div></div>}
     </div>
   );
 };
