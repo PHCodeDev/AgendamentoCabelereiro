@@ -43,12 +43,18 @@ const NovoAgendamento: React.FC = () => {
   const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Verificação do formato do telefone (somente números com 11 dígitos)
+    const telefoneValido = /^\d{11}$/.test(telefone);
+    if (!telefoneValido) {
+      setMensagemErro("Número de telefone inválido.");
+      return;
+    }
+
     const hoje = new Date();
     const inicioDaSemana = new Date(hoje);
     const fimDaSemana = new Date(hoje);
 
     inicioDaSemana.setDate(hoje.getDate() - hoje.getDay());
-
     fimDaSemana.setDate(hoje.getDate() + (6 - hoje.getDay()));
 
     // Consultar o número de agendamentos na semana atual
@@ -106,6 +112,7 @@ const NovoAgendamento: React.FC = () => {
     return horarios;
   };
 
+
   return (
     <div className="custom-background min-h-screen flex items-center">
       <button
@@ -128,11 +135,11 @@ const NovoAgendamento: React.FC = () => {
                 Novo Agendamento
               </h1>
               <form onSubmit={escolhaBarbeiro}>
-                <div className="flex space-x-4">
+                <div className="flex flex-col lg:flex-row lg:space-x-4">
                   {barbeiros.map((b) => (
                     <label
                       key={b.nome}
-                      className={`p-4 transform hover:scale-105 px-20 rounded cursor-pointer flex flex-col items-center ${
+                      className={`p-4 my-2 lg:my-0 transform hover:scale-105 px-20 rounded cursor-pointer flex flex-col items-center ${
                         barbeiro === b.nome ? "bg-[#FF9C09]" : ""
                       } ${b.bgColor}`}
                     >
@@ -143,6 +150,7 @@ const NovoAgendamento: React.FC = () => {
                         checked={barbeiro === b.nome}
                         onChange={(e) => setBarbeiro(e.target.value)}
                         className="hidden"
+                        required
                       />
                       <img
                         src={b.img}
@@ -172,7 +180,7 @@ const NovoAgendamento: React.FC = () => {
               src="https://i.ibb.co/2S3jtXq/Group-3.png"
               alt="logo"
             />
-            <h1 className="text-4xl font-bold text-white my-6 ">
+            <h1 className="text-4xl text-center font-bold text-white my-6 ">
               Escolha a Data e Horário
             </h1>
             <form
@@ -235,18 +243,18 @@ const NovoAgendamento: React.FC = () => {
               src="https://i.ibb.co/2S3jtXq/Group-3.png"
               alt="logo"
             />
-            <h1 className="text-4xl font-bold mb-4">
+            <h1 className="text-4xl text-center font-bold mb-4">
               Confirmação do Agendamento
             </h1>
-            <div className="flex">
+            <div className="flex mx-auto">
               <p className="mx-4">
-                <strong>Barbeiro:</strong> {barbeiro}
+                <strong>Barbeiro:</strong><br/> {barbeiro}
               </p>
               <p className="mx-4">
-                <strong>Data:</strong> {data}
+                <strong>Data:</strong><br/> {data}
               </p>
               <p className="mx-4">
-                <strong>Horário:</strong> {horario}
+                <strong>Horário:</strong><br/> {horario}
               </p>
             </div>
             <form
@@ -258,7 +266,7 @@ const NovoAgendamento: React.FC = () => {
                   type="text"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
-                  className="mt-2 pr-44 pl-2 py-2 border border-gray-300 rounded text-left"
+                  className="mt-2 text-black w-[300px] lg:pr-44 pl-2 py-2 border border-gray-300 rounded text-left"
                   required
                   placeholder="Digite seu nome"
                 />
@@ -269,7 +277,7 @@ const NovoAgendamento: React.FC = () => {
                   type="tel"
                   value={telefone}
                   onChange={(e) => setTelefone(e.target.value)}
-                  className="mt-2 pr-44 pl-2 p-2 border border-gray-300 rounded"
+                  className="mt-2 text-black w-[300px] lg:pr-44 pl-2 p-2 border border-gray-300 rounded"
                   required
                   placeholder="Digite seu telefone"
                 />
@@ -277,13 +285,13 @@ const NovoAgendamento: React.FC = () => {
               <div className="flex flex-row text-black">
                 <button
                   onClick={handleVoltar}
-                  className="botao mt-4 p-2 mx-4 bg-gray-500 rounded"
+                  className="w-[90px] lg:w-[180px]  mt-4 font-bold my-auto p-2 mx-4 bg-gray-500 rounded transition hover:scale-105"
                 >
                   Voltar
                 </button>
                 <button
                   type="submit"
-                  className="mt-4 font-bold mx-4 p-2 bg-[#FF9C09] rounded transition hover:scale-105"
+                  className="mt-4 w-[200px] font-bold mx-4 p-2 bg-[#FF9C09] rounded transition hover:scale-105"
                 >
                   Finalizar Agendamento
                 </button>

@@ -68,7 +68,7 @@ const MinhasReservas: React.FC = () => {
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="relative z-10 w-full max-w-md bg-[#DCDCDD] p-6 rounded-lg shadow-md shadow-[#2c2c2c50] mt-4"
+        className="relative z-10 w-[330px] lg:w-full max-w-md bg-[#DCDCDD] p-6 rounded-lg shadow-md shadow-[#2c2c2c50] mt-4"
       >
         <div className="mb-4">
           <label className="block text-[18px] text-[#111] text-sm font-bold mb-2">
@@ -91,7 +91,7 @@ const MinhasReservas: React.FC = () => {
         </button>
       </form>
       {reservaEncontrada && (
-        <div className="ficha p-4 bg-[#FF9C09] rounded w-full max-w-md ">
+        <div className="ficha p-4 bg-[#FF9C09] rounded w-[330px] lg:w-full max-w-md ">
           <h2 className="text-xl font-bold">Reserva Encontrada!</h2>
           <div className="flex justify-around text-[15px]">
             <p>
